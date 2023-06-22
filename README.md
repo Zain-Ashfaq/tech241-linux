@@ -108,3 +108,90 @@ To remove write permissions from the Group entity, use the command: `chmod g-w t
 ## Use numeric values to give read + write access to User, read access to Group, and no access to Other
 
 To use numeric values to give read + write access to User, read access to Group, and no access to Other, use the command: `chmod 640 test.txt`
+
+# Linux Commands
+
+- `cat chicken-joke.txt | grep chicken`
+
+  - This command reads the contents of the file "chicken-joke.txt" and passes it to the `grep` command, which searches for the word "chicken" in the input and displays the matching lines.
+
+- `apt install tree`
+
+  - This command installs the "tree" package using the package manager "apt". Tree is a utility that displays the directory structure in a tree-like format.
+
+- `sudo apt install tree`
+
+  - Same as the previous command, but it runs with administrative privileges (sudo).
+
+- `sudo apt-get update -y`
+
+  - This command updates the package lists and upgrades the installed packages on the system. The "-y" flag automatically confirms any prompts during the update process.
+
+- `cd /`
+
+  - Changes the current directory to the root directory ("/").
+
+- `mkdir del_temp`
+
+  - Creates a new directory named "del_temp" in the current directory.
+
+- `cd del_temp/`
+
+  - Changes the current directory to the "del_temp" directory.
+
+- `cd ..`
+
+  - Moves up one directory level (to the parent directory).
+
+- `rm -r del_temp/`
+
+  - Deletes the "del_temp" directory and its contents recursively ("-r" flag).
+
+- `mkdir funny-jokes`
+
+  - Creates a new directory named "funny-jokes" in the current directory.
+
+- `pwd`
+
+  - Prints the current working directory (full path).
+
+- `cd ../..`
+
+  - Moves up two directory levels (to the grandparent directory).
+
+- `mv chicken-joke.txt funny-stuff/funny-jokes/`
+
+  - Moves the file "chicken-joke.txt" to the "funny-jokes" directory inside the "funny-stuff" directory.
+
+- `mv chicken-joke.txt test-del.txt`
+
+  - Renames the file "chicken-joke.txt" to "test-del.txt" in the current directory.
+
+- `mv test-del.txt ../../`
+
+  - Moves the file "test-del.txt" to the parent directory.
+
+- `mv chicken-joke.txt funny-stuff/funny-jokes/`
+
+  - Moves the file "chicken-joke.txt" to the "funny-jokes" directory inside the "funny-stuff" directory.
+
+- `mv chicken-joke.txt ~/funny-stuff/`
+
+  - Moves the file "chicken-joke.txt" to the "funny-stuff" directory in the user's home directory.
+
+- `cp chicken-joke.txt bad-joke.txt`
+
+  - Copies the file "chicken-joke.txt" and creates a new file named "bad-joke.txt" in the current directory.
+
+- `mv bad-joke.txt ~/`
+
+  - Moves the file "bad-joke.txt" to the user's home directory.
+
+- `rm -r funny-stuff/`
+  - Deletes the "funny-stuff" directory and its contents recursively ("-r" flag).
+
+Processes
+2 types:
+
+- system processes `ps aux`
+- user processes: `ps`
