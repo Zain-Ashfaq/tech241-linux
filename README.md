@@ -190,8 +190,205 @@ To use numeric values to give read + write access to User, read access to Group,
 - `rm -r funny-stuff/`
   - Deletes the "funny-stuff" directory and its contents recursively ("-r" flag).
 
-Processes
-2 types:
+### Linux Commands
 
-- system processes `ps aux`
-- user processes: `ps`
+#### System Update and Package Management
+
+- `sudo apt upgrade`
+
+  - This command is used to upgrade all upgradable packages on the system.
+
+- `sudo apt install nginx`
+  - This command is used to install the 'nginx' package.
+
+#### Nginx Service Management
+
+- `sudo systemctl start nginx`
+
+  - Starts the 'nginx' service.
+
+- `sudo systemctl restart nginx`
+
+  - Restarts the 'nginx' service.
+
+- `sudo systemctl enable nginx`
+
+  - Enables the 'nginx' service to start on boot.
+
+- `sudo systemctl is-enabled nginx`
+
+  - Checks whether the 'nginx' service is enabled to start on boot.
+
+- `sudo systemctl status nginx`
+  - Checks the status of the 'nginx' service.
+
+#### Shell Scripts
+
+- `./provision.sh`
+
+  - Executes the 'provision.sh' shell script in the current directory.
+
+- `nano provision.sh`
+
+  - Opens the 'provision.sh' file in the nano text editor.
+
+- `cat provision.sh`
+  - Displays the content of 'provision.sh' file in the terminal.
+
+#### Environment Variables
+
+- `printenv`
+
+  - Prints all environment variables.
+
+- `printenv USER`
+
+  - Prints the 'USER' environment variable.
+
+- `MYNAME=zain`
+
+  - Sets the 'MYNAME' environment variable to 'zain'.
+
+- `echo "hello"`
+
+  - Prints "hello" to the console.
+
+- `echo $MYNAME`
+
+  - Prints the value of 'MYNAME' environment variable.
+
+- `export MYNAME=zain`
+
+  - Exports the 'MYNAME' environment variable so it is available to child processes.
+
+- `export MYCATSNAME=Silkie`
+
+  - Exports the 'MYCATSNAME' environment variable so it is available to child processes.
+
+- `printenv MYCATSNAME`
+  - Prints the 'MYCATSNAME' environment variable.
+
+#### Process Management
+
+- `ps`
+
+  - Displays the current running processes.
+
+- `exit`
+  - Exits the current shell.
+
+#### User's Bash Environment
+
+- `nano .bashrc`
+
+  - Opens the '.bashrc' file in the nano text editor.
+
+- `tail -5 .bashrc`
+
+  - Shows the last 5 lines of the '.bashrc' file.
+
+- `source .bashrc`
+  - Loads the '.bashrc' file, applying any changes made.
+
+#### Terminal History
+
+- `history`
+  - Shows the history of commands that have been entered in the terminal.
+
+kill - 9 command:
+
+- brute force method.
+
+## Copy file to VM
+
+`scp -i ~/.ssh/tech241-zain-az-key app.zip adminuser@51.11.137.173:~/`
+`<Path to private key><Path to file you want to transfer><username and public ip of machine>:<path you want to store file>`
+
+## provision.sh
+
+#!/bin/bash
+
+# update source list
+
+sudo apt update -y
+
+# upgrade all the packages and installs them in the kernal
+
+sudo apt upgrade -y
+
+# install nginx
+
+sudo apt install nginx -y
+
+# start nginx
+
+sudo systemctl start nginx
+
+# status nginx
+
+# sudo systemctl status nginx
+
+# Linux Commands Explanation
+
+## NSG rules
+
+- Added port 3000 to the NSG rules on azure website.
+- Inbound port rule
+
+## Process Management
+
+- **ps aux**: Display detailed information about all the current running processes in the system. The 'aux' option shows processes for all users, in a user-oriented format.
+
+- **sleep**: Pause for an amount of time. The number following the command is the number of seconds to pause. For example, `sleep 3` pauses for 3 seconds.
+
+- **jobs**: Display the status of jobs in the current session.
+
+- **jobs -l**: List the current jobs along with their process IDs.
+
+- **kill**: Terminate processes. The number following the command is the process ID to terminate. The `-1` and `-9` are signals specifying how to terminate the process. `-1` is a hangup signal, and `-9` is a kill signal.
+
+- **ps -ef**: Display a full listing of all current processes.
+
+- **kill -1 4528**: Sends a HUP (hang up) signal to the process with ID 4528.
+
+- **kill -15 4528**: Sends a TERM (terminate) signal to the process with ID 4528.
+
+- **kill -9 4528**: Sends a KILL signal to the process with ID 4528.
+
+## File Management
+
+- **nano**: Open the file in the nano text editor. For example, `nano provision.sh` opens the file `provision.sh` in the nano text editor.
+
+- **ls**: List the files and directories in the current directory.
+
+- **rm**: Remove files or directories. The `-r` option is used to remove directories and their contents recursively.
+
+- **cd**: Change the current directory. `cd` without any arguments changes to the home directory.
+
+- **mv**: Move or rename files or directories. For example, `mv app app-scp` renames the directory `app` to `app-scp`.
+
+- **rm -rf app-github/**: Recursively removes the `app-github` directory and its contents.
+
+## Git Commands
+
+- **git --version**: Display the installed version of Git.
+
+- **git clone**: Clone the Git repository at the provided URL into a new directory in the current location. For example, `git clone https://github.com/Zain-Ashfaq/tech241-sparta-app` clones the specified Git repository.
+
+## Node.js and npm Commands
+
+- **curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -**: Downloads and runs the NodeSource setup script for Node.js 12.x.
+
+- **sudo apt install nodejs -y**: Installs Node.js using the apt package manager.
+
+- **sudo npm install pm2 -g**: Installs the pm2 process manager globally using npm.
+
+- **npm install**: Installs the dependencies listed in the `package.json` file in the current directory.
+
+- **npm start**: Runs the script named "start" defined in the `package.json` file in the current directory.
+
+## Other Commands
+
+- **history**: Display the command line history.
+
+- **clear**: Clears the terminal screen.
