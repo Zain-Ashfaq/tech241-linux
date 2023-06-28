@@ -392,3 +392,177 @@ sudo systemctl start nginx
 - **history**: Display the command line history.
 
 - **clear**: Clears the terminal screen.
+
+`bindIp: 0.0.0.0` - only for testing - allows any machine to connect
+
+# Mongodb script
+
+## System Update and Upgrade
+
+- **sudo apt update -y**: Update the list of available packages and their versions, but it does not install or upgrade any packages.
+
+- **sudo apt upgrade -y**: Install newer versions of packages currently installed on the user's system from the sources enumerated in /etc/apt/sources.list.
+
+## MongoDB Installation and Configuration
+
+- **wget -qO - https://www.mongodb.org/static/pgp/server-3.2.asc | sudo apt-key add -**: Download the MongoDB GPG public key and add it to the apt program keyring.
+
+- **echo "deb http://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/3.2 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-3.2.list**: Add the MongoDB repository to the apt sources list.
+
+- **sudo apt-get install -y mongodb-org=3.2.20 mongodb-org-server=3.2.20 mongodb-org-shell=3.2.20 mongodb-org-mongos=3.2.20 mongodb-org-tools=3.2.20**: Install specific versions of MongoDB packages.
+
+- **sudo nano /etc/mongod.conf**: Open the MongoDB configuration file in the nano text editor.
+
+- **cat /etc/mongod.conf**: Display the contents of the MongoDB configuration file.
+
+## MongoDB Service Management
+
+- **sudo systemctl status mongod**: Check the status of the MongoDB service.
+
+- **sudo systemctl start mongod**: Start the MongoDB service.
+
+- **sudo systemctl enable mongod**: Enable the MongoDB service to start on boot.
+
+- **sudo systemctl restart mongod**: Restart the MongoDB service.
+
+## Process Management
+
+- **ps**: Display the status of the current processes in the terminal.
+
+- **ps aux**: Display detailed information about all the current running processes in the system.
+
+- **kill -9 14483**: Sends a KILL signal to the process with ID 14483.
+
+- **sudo kill -9 14483**: Sends a KILL signal to the process with ID 14483 with root privileges.
+
+## Other Commands
+
+- **history**: Display the command line history.
+
+- **sudo systemctl restart nginx**: Restart the Nginx service.
+
+## Connecting to Mongodb
+
+# Environment Variable Configuration
+
+- **export DB_HOST=mongodb://172.187.178.145:27017/posts**: This command sets the `DB_HOST` environment variable to the provided MongoDB connection string. This environment variable can then be used in your application to connect to the MongoDB database. The connection string specifies that MongoDB is running on the host at IP address `172.187.178.145` and listening on port `27017`. The `/posts` at the end of the connection string specifies the `posts` database.
+
+# App Installation Script
+
+This script automates the installation and setup of a Node.js application. It performs the following steps:
+
+1. **Update Package List**: The script first updates the package list to ensure that the latest versions of all packages are available.
+
+   ```bash
+   sudo apt update -y
+   ```
+
+2. **Upgrade Packages**: The script then upgrades all installed packages to their latest versions.
+
+   ```bash
+   sudo apt upgrade -y
+   ```
+
+3. **Install Nginx**: The script installs Nginx, a popular web server.
+
+   ```bash
+   sudo apt install nginx -y
+   ```
+
+4. **Configure Nginx**: The script enables Nginx to start on boot, starts the Nginx service, and then restarts it to ensure that any configuration changes take effect.
+
+   ```bash
+   sudo systemctl enable nginx
+   sudo systemctl start nginx
+   sudo systemctl restart nginx
+   ```
+
+5. **Download Node.js**: The script downloads and installs Node.js.
+
+   ```bash
+   curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
+   sudo apt install nodejs -y
+   ```
+
+6. **Set DB_HOST Environment Variable**: The script sets the `DB_HOST` environment variable, which is used by the application to connect to its MongoDB database.
+
+   ```bash
+   export DB_HOST=172.187.140.61:27017/posts
+   ```
+
+7. **Install PM2**: The script installs PM2, a process manager for Node.js applications.
+
+   ```bash
+   sudo npm install -g pm2
+   ```
+
+8. **Clone Application**: The script clones the application's code from a GitHub repository.
+
+   ```bash
+   git clone https://github.com/jungjinggg/tech241_sparta_app app-github-automation
+   ```
+
+9. **Install Application Dependencies**: The script installs the application's Node.js dependencies.
+
+   ```bash
+   cd ~/app-github-automation/app
+   npm install -y
+   ```
+
+# MongoDB Installation Script
+
+This script automates the installation and setup of MongoDB on a Ubuntu system. It performs the following steps:
+
+1. **Update Package List**: The script first updates the package list to ensure that the latest versions of all packages are available.
+
+   ```bash
+   sudo apt update -y
+   ```
+
+2. **Upgrade Packages**: The script then upgrades all installed packages to their latest versions.
+
+   ```bash
+   sudo apt upgrade -y
+   ```
+
+3. **Import MongoDB GPG Key**: The script imports the MongoDB public GPG key, which is used by the package management system to verify the integrity of the packages.
+
+   ```bash
+   wget -qO - https://www.mongodb.org/static/pgp/server-3.2.asc | sudo apt-key add -
+   ```
+
+4. **Add MongoDB Repository**: The script adds the MongoDB repository to the list of sources from which packages can be installed.
+
+   ```bash
+   echo "deb [ arch=amd64 ] https://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/3.2 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-3.2.list
+   ```
+
+5. **Update Package List**: The script updates the package list again to include the packages from the newly added MongoDB repository.
+
+   ```bash
+   sudo apt update -y
+   ```
+
+6. **Install MongoDB**: The script installs MongoDB and its associated tools.
+
+   ```bash
+   sudo apt-get install -y mongodb-org=3.2.20 mongodb-org-server=3.2.20 mongodb-org-shell=3.2.20 mongodb-org-mongos=3.2.20 mongodb-org-tools=3.2.20
+   ```
+
+7. **Update MongoDB Configuration**: The script updates the MongoDB configuration to allow connections from any IP address.
+
+   ```bash
+   sudo sed -i 's/bindIp: 127.0.0.1/bindIp: 0.0.0.0/' /etc/mongod.conf
+   ```
+
+8. **Start MongoDB**: The script starts the MongoDB service.
+
+   ```bash
+   sudo systemctl start mongod
+   ```
+
+9. **Enable MongoDB on Boot**: The script enables MongoDB to start on boot.
+
+   ```bash
+   sudo systemctl enable mongod
+   ```
