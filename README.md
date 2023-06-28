@@ -509,6 +509,16 @@ This script automates the installation and setup of a Node.js application. It pe
    npm install -y
    ```
 
+# Use & instead of PM2
+
+```bash
+nohup npm start &
+```
+
+The nohup command is used to run a command immune to hangups, and & is used to run the command in the background.
+
+Before you can run the same command again, you need to ensure that the previous instance of the application is stopped or terminated. Otherwise, attempting to run the command again will result in an error because the application is already running.
+
 # MongoDB Installation Script
 
 This script automates the installation and setup of MongoDB on a Ubuntu system. It performs the following steps:
