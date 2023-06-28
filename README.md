@@ -447,9 +447,9 @@ sudo systemctl start nginx
 
 - **export DB_HOST=mongodb://172.187.178.145:27017/posts**: This command sets the `DB_HOST` environment variable to the provided MongoDB connection string. This environment variable can then be used in your application to connect to the MongoDB database. The connection string specifies that MongoDB is running on the host at IP address `172.187.178.145` and listening on port `27017`. The `/posts` at the end of the connection string specifies the `posts` database.
 
-# App Installation Script
+# App Installation and Setup Script
 
-This script automates the installation and setup of a Node.js application. It performs the following steps:
+This script automates the installation and setup of a Node.js application and configures Nginx as a reverse proxy. It performs the following steps:
 
 1. **Update Package List**: The script first updates the package list to ensure that the latest versions of all packages are available.
 
@@ -469,11 +469,12 @@ This script automates the installation and setup of a Node.js application. It pe
    sudo apt install nginx -y
    ```
 
-4. **Configure Nginx**: The script enables Nginx to start on boot, starts the Nginx service, and then restarts it to ensure that any configuration changes take effect.
+4. **Configure Nginx**: The script enables Nginx to start on boot, starts the Nginx service, and then modifies the default Nginx configuration to set up a reverse proxy to `localhost:3000`.
 
    ```bash
    sudo systemctl enable nginx
    sudo systemctl start nginx
+   sudo sed -i 's|try_files $uri $uri/ =404;|proxy_pass http://localhost:3000;|' /etc/nginx/sites-available/default
    sudo systemctl restart nginx
    ```
 
@@ -487,7 +488,7 @@ This script automates the installation and setup of a Node.js application. It pe
 6. **Set DB_HOST Environment Variable**: The script sets the `DB_HOST` environment variable, which is used by the application to connect to its MongoDB database.
 
    ```bash
-   export DB_HOST=172.187.140.61:27017/posts
+   export DB_HOST=172.187.178.145:27017/posts
    ```
 
 7. **Install PM2**: The script installs PM2, a process manager for Node.js applications.
@@ -508,6 +509,14 @@ This script automates the installation and setup of a Node.js application. It pe
    cd ~/app-github-automation/app
    npm install -y
    ```
+
+10. **Start Application**: The script starts the application using PM2.
+
+    ```bash
+    pm2 start app.js --name "sparta-app"
+    ```
+
+This script installs Node.js, Nginx, and PM2, sets up a reverse proxy to `localhost:3000` using Nginx, clones a Node.js application from a GitHub repository, installs its dependencies, and starts the application using PM2. The `DB_HOST` environment variable is set to the IP address and port of a MongoDB database.
 
 # Use & instead of PM2
 
@@ -576,3 +585,35 @@ This script automates the installation and setup of MongoDB on a Ubuntu system. 
    ```bash
    sudo systemctl enable mongod
    ```
+
+# Nginx and Reverse Proxy Guide
+
+## What are ports?
+
+Ports are an endpoint of communication in an operating system. While IP addresses are used to identify the machine or host in a network, ports are used to identify specific processes or services running on that host. For example, web servers typically listen on port 80 for HTTP traffic and port 443 for HTTPS traffic.
+
+## What is a reverse proxy? How is it different to a proxy?
+
+A proxy server is a server that acts as an intermediary for requests from clients seeking resources from other servers. A client connects to the proxy server, requesting some service, such as a file, connection, web page, or other resources available from a different server and the proxy server evaluates the request as a way to simplify and control its complexity.
+
+A reverse proxy, on the other hand, appears to the client just like an ordinary web server. No special configuration on the client is necessary. The client makes a request to the reverse proxy, which then decides where to route that request. The reverse proxy can forward it to different servers, providing a level of load balancing, or it can provide a single point of access to an application spread across many servers.
+
+## What is Nginx's default configuration (hint - 'sites-available' directory)
+
+Nginx's default configuration is stored in a file typically located at /etc/nginx/nginx.conf. However, for managing server blocks (similar to virtual hosts in Apache), Nginx uses two directories: sites-available and sites-enabled. The sites-available directory contains configuration files for all your server blocks, while the sites-enabled directory contains links to the configuration files that Nginx will actually read and run. By default, there is a default server block file in the sites-available directory.
+
+## How do you set up a Nginx reverse proxy?
+
+Setting up an Nginx reverse proxy involves several steps:
+
+1. Install Nginx on your server.
+2. Modify the Nginx configuration file (located at /etc/nginx/sites-available/default).
+3. In the configuration file, within a location block, use the proxy_pass directive to specify the address of the proxied server. For example, to proxy requests to a server running on localhost at port 3000, you would add proxy_pass http://localhost:3000;.
+4. Save the configuration file and exit the text editor.
+5. Test the configuration to make sure there are no syntax errors with `sudo nginx -t`.
+6. If the configuration test is successful, reload Nginx to apply the changes with `sudo systemctl reload nginx`.
+
+Now, when you access your server's public IP address in a web browser, you should be served the application running on localhost at port 3000.
+
+![ahows how proxy system works](./proxy-diagram.png)
+In this diagram, the client sends a request to the reverse proxy, which then decides where to route that request. The reverse proxy can forward it to different servers (Server 1, Server 2, Server 3 in the diagram), providing a level of load balancing. Once the servers respond, the reverse proxy sends the response back to the client.
