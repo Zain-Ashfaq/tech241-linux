@@ -621,7 +621,8 @@ In this diagram, the client sends a request to the reverse proxy, which then dec
 # blob storage
 
 resource group -> storage account -> container(s) -> blobs
-redundancies: not essential for a program to run - backup copies of things incase of a disaster, you can fall back on it.
+
+- redundancies: not essential for a program to run - backup copies of things incase of a disaster, you can fall back on it.
 
 # Azure Blob Storage
 
